@@ -3,7 +3,7 @@ import pygame
 
 pygame.init()
 
-class candyPiece:
+class CandyPiece:
     def __init__(self,x,y,screen,dark):
         self.type = rnd.randint(1,4)
         self.x = x

@@ -1,40 +1,31 @@
 import pygame
-from candy import candyPiece
+from candy import CandyPiece
 
 pygame.init()
 
-screenSize = (300,600)
-border = 20
+screen_size = (300,600)
+border = 30
 
 #colors
 BACKGROUND = (150,200,100)
 DARK = (105,55,155)
 
-pieceSize = 60
-gameSpace = pygame.Rect(border,border,screenSize[0]-2*border,screenSize[1]-5*border)
-numRows = (screenSize[1]-6*border)//pieceSize
-numCols = (screenSize[0]-3*border)//pieceSize
+piece_size = 60
+game_space = pygame.Rect(border,border,240,480)
+num_rows = 480//piece_size
+num_cols = 240//piece_size
 
-SCREEN  = pygame.display.set_mode(screenSize)
+SCREEN  = pygame.display.set_mode(screen_size)
 
 pygame.display.set_caption("Sugar Smash Allstars")
 
-pieces = [[0]*numCols]*numRows
-print(pieces)
-for row in range(numRows):
-    for column in range(numCols):
-        x = border+column*pieceSize
-        y = border+row*pieceSize
-        #print("setting: ",x," , ",y)
-        pieces[row][column] = candyPiece(x,y,SCREEN,DARK)
-        (x,y) = pieces[row][column].getPosition()
-        print("reading: ",x," , ",y)
-
-for column in range(numCols):
-    for row in range(numRows):
-        print(row,column)
-        (x,y) = pieces[row][column].getPosition()
-        print("Reading once more: ",x," , ",y)
+pieces = []
+for row in range(num_rows):
+    pieces.append([])
+    for column in range(num_cols):
+        x = border+column*piece_size
+        y = border+row*piece_size
+        pieces[row].append(CandyPiece(x,y,SCREEN,DARK))
         
 
 #game loop
@@ -49,10 +40,8 @@ while running:
     
     #rendering
     SCREEN.fill(BACKGROUND)
-    pygame.draw.rect(SCREEN,DARK,gameSpace,2)
-    """
-    for row in range(numRows):
-        for column in range(numCols):
+    pygame.draw.rect(SCREEN,DARK,game_space,2)
+    for row in range(num_rows):
+        for column in range(num_cols):
             pieces[row][column].draw()
-            """
     pygame.display.update()
