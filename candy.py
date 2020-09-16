@@ -11,10 +11,16 @@ class CandyPiece(particle):
         self.y = y
         self.targetX = targetX
         self.targetY = targetY
-        self.graphic = GRAPHICS[self.type]
         self.highlighted = False
         self.state = state
+        self.x_offset = 0
         super().__init__()
+    
+    def __str__(self):
+        return str(self.type)
+
+    def __repr__(self):
+        return str(self.type)
     
     def update(self):
         if self.state=="fall":
@@ -25,7 +31,6 @@ class CandyPiece(particle):
         else:
             self.x = self.targetX
             self.y = self.targetY
-            #self.bounds = pygame.Rect(self.x,self.y,PIECE_SIZE,PIECE_SIZE)
         
     
     def getPosition(self):
@@ -41,6 +46,6 @@ class CandyPiece(particle):
         self.highlighted = state
     
     def draw(self):
-        if self.highlighted:
+        if self.highlighted and self.state=="stable":
             pygame.draw.rect(SCREEN,LIGHT,pygame.Rect(self.x,self.y,PIECE_SIZE,PIECE_SIZE))
-        SCREEN.blit(self.graphic,(self.x+4,self.y+4))
+        SCREEN.blit(GRAPHICS[self.type],(self.x+4+self.x_offset,self.y+4))

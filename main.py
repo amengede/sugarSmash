@@ -19,6 +19,8 @@ while running:
     #event handling
     game_board.handleMouse()
     for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONUP:
+            game_board.handleClick()
         if event.type == pygame.QUIT:
             running = False
     
